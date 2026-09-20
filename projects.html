@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects | Medical Physics and Complex Systems</title>
+  <meta name="description" content="Progetti di ricerca del gruppo di Fisica Medica e Sistemi Complessi: TEBAKA, PERSON, MAGIC-5, ReCaS e progetti PNRR.">
+<link rel="stylesheet" href="assets/fonts/fonts.css">
+  <link rel="stylesheet" href="assets/css/impact.css">
+</head>
+<body>
+  <!-- Filtro SVG: rifrazione/deformazione della top bar (liquid glass) -->
+  <svg class="topbar-glass-defs" width="0" height="0" aria-hidden="true" focusable="false">
+    <filter id="topbar-refraction" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.006 0.01" numOctaves="2" seed="11" result="noise"/>
+      <feGaussianBlur in="noise" stdDeviation="1.5" result="softNoise"/>
+      <feDisplacementMap in="SourceGraphic" in2="softNoise" scale="16" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </svg>
+
+  <!-- Barra Superiore Istituzionale -->
+  <aside class="top-bar">
+    <div class="top-bar-content">
+      <span>Dipartimento Interateneo di Fisica "M. Merlin" &bull; Sezione INFN di Bari</span>
+      <span>Via E. Orabona, 4 - 70125 Bari, Italy</span>
+    </div>
+  </aside>
+
+  <!-- Intestazione e Menu di Navigazione -->
+  <header class="site-header">
+    <div class="header-container">
+      <div class="brand-wrapper">
+        <div class="brand-logos">
+          <a href="index.html" aria-label="Home page INFN Sezione di Bari">
+            <img src="assets/images/logo-infn.svg" alt="Logo INFN Bari" class="brand-logo-img">
+          </a>
+          <a href="index.html" aria-label="Home page Università di Bari">
+            <img src="assets/images/logo-uniba.svg" alt="Logo Università degli Studi di Bari" class="brand-logo-img">
+          </a>
+        </div>
+        <div class="brand-text">
+          <div class="brand-title">Medical Physics &amp; Complex Systems</div>
+          <div class="brand-subtitle">Ricerca in Fisica Applicata, Bioinformatica e Intelligenza Artificiale</div>
+        </div>
+      </div>
+
+      <!-- Azioni header: CTA newsletter + menu mobile -->
+      <div class="header-actions">
+        <a href="join-us.html" class="btn btn-amber header-cta">Join Us</a>
+        <button class="mobile-menu-toggle" aria-label="Apri menu di navigazione" aria-expanded="false">&#9776;</button>
+      </div>
+
+      <nav class="primary-nav" aria-label="Menu Principale">
+        <ul class="nav-menu">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="people.html" class="nav-link">People</a></li>
+          <li><a href="research.html" class="nav-link">Research</a></li>
+          <li><a href="projects.html" class="nav-link active">Projects</a></li>
+          <li><a href="publications.html" class="nav-link">Publications</a></li>
+          <li><a href="challenges.html" class="nav-link">Challenges</a></li>
+          <li><a href="courses.html" class="nav-link">Courses</a></li>
+          <li><a href="conference-slides.html" class="nav-link">Conference Slides</a></li>
+          <li><a href="multimedia.html" class="nav-link">Multimedia</a></li>
+          <li><a href="newsroom.html" class="nav-link">Newsroom</a></li>
+          <li><a href="join-us.html" class="nav-link">Join Us</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ======================================================== -->
+  <!-- CONTENUTO PRINCIPALE (AREA OPERATORE) -->
+  <!-- ======================================================== -->
+  <main class="main-content">
+    
+    <div class="section-header">
+      <h1 class="page-title">Research Projects</h1>
+      <p class="page-lead">
+        Il gruppo è attivamente coinvolto in progetti di ricerca finanziati da programmi europei, ministeriali (MUR, Ministero della Salute), dall'INFN (Commissione Scientifica Nazionale 5) e dalla Regione Puglia.
+      </p>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- LISTA DEI PROGETTI (MODIFICABILE DA OPERATORE) -->
+    <!-- ======================================================== -->
+    <div class="grid-2">
+
+      <!-- PROGETTO 1: TEBAKA -->
+      <!-- BLOCCO PROGETTO: INIZIO -->
+      <article class="card">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 8px;">
+          <span class="card-badge">Monitoraggio &amp; Sensori</span>
+          <span style="font-size: 0.8rem; font-weight: 600; color: var(--color-text-muted);">Regione Puglia</span>
+        </div>
+        <h2 class="card-title">TEBAKA</h2>
+        <p style="font-weight: 600; font-size: 0.9rem; color: var(--color-primary); margin-bottom: 12px;">
+          Testbed per l'Acquisizione di Conoscenza in Agricoltura di Precisione
+        </p>
+        <p class="card-text">
+          Sviluppo di una piattaforma integrata basata su osservazione satellitare, velivoli a pilotaggio remoto (UAV/droni) e sensori prossimali a terra per il monitoraggio continuativo e quantitativo delle colture agrarie pugliesi (grano duro, olivo, vite). Il gruppo ha curato l'elaborazione dei dati multispettrali e i modelli predittivi di stato vegetativo.
+        </p>
+        <div style="margin-top: 18px; border-top: 1px solid var(--color-border); padding-top: 12px; font-size: 0.85rem; color: var(--color-text-muted);">
+          <strong>Coordinamento:</strong> Dip. di Fisica UniBa &bull; <strong>Tecnologie:</strong> Remote Sensing, Machine Learning, GIS
+        </div>
+      </article>
+      <!-- BLOCCO PROGETTO: FINE -->
+
+      <!-- PROGETTO 2: PERSON -->
+      <!-- BLOCCO PROGETTO: INIZIO -->
+      <article class="card">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 8px;">
+          <span class="card-badge">Sanità Digitale</span>
+          <span style="font-size: 0.8rem; font-weight: 600; color: var(--color-text-muted);">Progetto Strategico</span>
+        </div>
+        <h2 class="card-title">PERSON</h2>
+        <p style="font-weight: 600; font-size: 0.9rem; color: var(--color-primary); margin-bottom: 12px;">
+          Pervasive Gamification for Personalized Treatment of Cognitive Deficits
+        </p>
+        <p class="card-text">
+          Piattaforma clinica per la riabilitazione cognitiva e funzionale personalizzata di pazienti con declino cognitivo lieve (MCI) e post-ictus. Il sistema adatta dinamicamente gli esercizi terapeutici attraverso il tracciamento in tempo reale delle risposte comportamentali e biometriche del paziente.
+        </p>
+        <div style="margin-top: 18px; border-top: 1px solid var(--color-border); padding-top: 12px; font-size: 0.85rem; color: var(--color-text-muted);">
+          <strong>Partners:</strong> UniBa, IRCCS Neurologici, Ospedali Regionali &bull; <strong>Tecnologie:</strong> Serious Games, Tele-riabilitazione
+        </div>
+      </article>
+      <!-- BLOCCO PROGETTO: FINE -->
+
+      <!-- PROGETTO 3: MAGIC-5 -->
+      <!-- BLOCCO PROGETTO: INIZIO -->
+      <article class="card">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 8px;">
+          <span class="card-badge">Infrastrutture INFN</span>
+          <span style="font-size: 0.8rem; font-weight: 600; color: var(--color-text-muted);">INFN CSN5</span>
+        </div>
+        <h2 class="card-title">MAGIC-5</h2>
+        <p style="font-weight: 600; font-size: 0.9rem; color: var(--color-primary); margin-bottom: 12px;">
+          Medical Applications on a Grid Infrastructure Connection
+        </p>
+        <p class="card-text">
+          Pietra miliare della fisica medica computazionale italiana per la creazione di un archivio distribuito di immagini mammografiche, TC polmonari e risonanze magnetiche cerebrali. Ha permesso lo sviluppo e la validazione su larga scala di algoritmi CAD su nodi di calcolo Grid federati.
+        </p>
+        <div style="margin-top: 18px; border-top: 1px solid var(--color-border); padding-top: 12px; font-size: 0.85rem; color: var(--color-text-muted);">
+          <strong>Coordinamento:</strong> Sezioni INFN &bull; <strong>Tecnologie:</strong> Grid Computing, CAD Biomedico, Database Federati
+        </div>
+      </article>
+      <!-- BLOCCO PROGETTO: FINE -->
+
+      <!-- PROGETTO 4: ReCaS BARI -->
+      <!-- BLOCCO PROGETTO: INIZIO -->
+      <article class="card">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 8px;">
+          <span class="card-badge">HPC &amp; Cloud</span>
+          <span style="font-size: 0.8rem; font-weight: 600; color: var(--color-text-muted);">PON R&amp;C</span>
+        </div>
+        <h2 class="card-title">ReCaS Data Center</h2>
+        <p style="font-weight: 600; font-size: 0.9rem; color: var(--color-primary); margin-bottom: 12px;">
+          Rete di Calcolo per Attività Scientifiche Multidisciplinari
+        </p>
+        <p class="card-text">
+          Infrastruttura d'eccellenza congiunta INFN-UniBa per il calcolo scientifico ad altissime prestazioni (migliaia di core CPU e cluster GPU). Il gruppo di Fisica Medica utilizza ReCaS per il training di reti neurali profonde complesse e l'analisi su scala petabyte di database clinici mondiali.
+        </p>
+        <div style="margin-top: 18px; border-top: 1px solid var(--color-border); padding-top: 12px; font-size: 0.85rem; color: var(--color-text-muted);">
+          <strong>Infrastruttura:</strong> ReCaS Bari &bull; <strong>Tecnologie:</strong> High Performance Computing, GPU Computing, Cloud Storage
+        </div>
+      </article>
+      <!-- BLOCCO PROGETTO: FINE -->
+
+    </div>
+
+    <!-- Istruzioni per Operatore -->
+    <div class="callout-box info" style="margin-top: 36px;">
+      <strong>Istruzioni per l'operatore:</strong> Per aggiungere un nuovo progetto, duplica uno dei blocchi <code>&lt;article class="card"&gt;...&lt;/article&gt;</code> contrassegnati dal commento <code>BLOCCO PROGETTO</code> in questo file.
+    </div>
+
+  </main>
+
+  <!-- Piè di Pagina Istituzionale -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h4>Medical Physics &amp; Complex Systems</h4>
+          <p>Dipartimento Interateneo di Fisica, Università di Bari &bull; Sezione INFN di Bari</p>
+          <p>Via E. Orabona, 4 &bull; 70125 Bari, Italia</p>
+        </div>
+        <div class="footer-col">
+          <h4>Navigazione</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">&rsaquo; Home</a></li>
+            <li><a href="people.html">&rsaquo; People</a></li>
+            <li><a href="research.html">&rsaquo; Research</a></li>
+            <li><a href="publications.html">&rsaquo; Pubblicazioni</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Risorse</h4>
+          <ul class="footer-links">
+            <li><a href="challenges.html">&rsaquo; Challenge</a></li>
+            <li><a href="newsroom.html">&rsaquo; Notizie</a></li>
+            <li><a href="join-us.html">&rsaquo; Contatti</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; Medical Physics and Complex Systems Group &bull; INFN Bari &amp; UniBa &bull; Design & Web Development by Lorenzo de Trizio - ReCaS IT Group.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

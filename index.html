@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Medical Physics and Complex Systems | INFN Bari &amp; UniBa</title>
+  <meta name="description" content="Gruppo di Ricerca in Fisica Medica e Sistemi Complessi - Università degli Studi di Bari Aldo Moro e Istituto Nazionale di Fisica Nucleare (INFN Sezione di Bari).">
+  <!-- Template di impatto: sistema editoriale "Soft Mist" (Zero Plugin / Zero Dipendenze Esterne) -->
+<link rel="stylesheet" href="assets/fonts/fonts.css">
+  <link rel="stylesheet" href="assets/css/impact.css">
+</head>
+<body>
+  <!-- Filtro SVG: rifrazione/deformazione della top bar (liquid glass) -->
+  <svg class="topbar-glass-defs" width="0" height="0" aria-hidden="true" focusable="false">
+    <filter id="topbar-refraction" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.006 0.01" numOctaves="2" seed="11" result="noise"/>
+      <feGaussianBlur in="noise" stdDeviation="1.5" result="softNoise"/>
+      <feDisplacementMap in="SourceGraphic" in2="softNoise" scale="16" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </svg>
+
+  <!-- Barra di avanzamento lettura -->
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <!-- ======================================================== -->
+  <!-- BARRA SUPERIORE ISTITUZIONALE -->
+  <!-- ======================================================== -->
+  <aside class="top-bar">
+    <div class="top-bar-content">
+      <span>Dipartimento Interateneo di Fisica "M. Merlin" &bull; Sezione INFN di Bari</span>
+      <span>Via E. Orabona, 4 - 70125 Bari, Italy</span>
+    </div>
+  </aside>
+
+  <!-- ======================================================== -->
+  <!-- INTESTAZIONE E MENU PRINCIPALE -->
+  <!-- ======================================================== -->
+  <header class="site-header">
+    <div class="header-container">
+      <div class="brand-wrapper">
+        <div class="brand-logos">
+          <a href="index.html" aria-label="Home page INFN Sezione di Bari">
+            <img src="assets/images/logo-infn.svg" alt="Logo INFN Bari" class="brand-logo-img">
+          </a>
+          <a href="index.html" aria-label="Home page Università di Bari">
+            <img src="assets/images/logo-uniba.svg" alt="Logo Università degli Studi di Bari" class="brand-logo-img">
+          </a>
+        </div>
+        <div class="brand-text">
+          <div class="brand-title">Medical Physics &amp; Complex Systems</div>
+          <div class="brand-subtitle">Ricerca in Fisica Applicata, Bioinformatica e Intelligenza Artificiale</div>
+        </div>
+      </div>
+
+      <!-- Azioni header: CTA newsletter + menu mobile -->
+      <div class="header-actions">
+        <a href="join-us.html" class="btn btn-amber header-cta">Join Us</a>
+        <button class="mobile-menu-toggle" aria-label="Apri menu di navigazione" aria-expanded="false">&#9776;</button>
+      </div>
+
+      <!-- Navigazione a Pagine Singole -->
+      <nav class="primary-nav" aria-label="Menu Principale">
+        <ul class="nav-menu">
+          <li><a href="index.html" class="nav-link active">Home</a></li>
+          <li><a href="people.html" class="nav-link">People</a></li>
+          <li><a href="research.html" class="nav-link">Research</a></li>
+          <li><a href="projects.html" class="nav-link">Projects</a></li>
+          <li><a href="publications.html" class="nav-link">Publications</a></li>
+          <li><a href="challenges.html" class="nav-link">Challenges</a></li>
+          <li><a href="courses.html" class="nav-link">Courses</a></li>
+          <li><a href="conference-slides.html" class="nav-link">Conference Slides</a></li>
+          <li><a href="multimedia.html" class="nav-link">Multimedia</a></li>
+          <li><a href="newsroom.html" class="nav-link">Newsroom</a></li>
+          <li><a href="join-us.html" class="nav-link">Join Us</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ======================================================== -->
+  <!-- CONTENUTO PRINCIPALE (AREA OPERATORE) -->
+  <!-- Template di impatto: pagina singola editoriale -->
+  <!-- ======================================================== -->
+  <main class="impact-page">
+
+    <!-- ==================================================== -->
+    <!-- 1. EROE FULL-BLEED CON NOTE GALLEGGIANTI -->
+    <!-- ==================================================== -->
+    <section class="impact-hero" id="impactHero">
+      <span class="impact-hero__bg" aria-hidden="true"></span>
+      <span class="impact-hero__glow" aria-hidden="true"></span>
+      <div class="impact-hero__inner">
+        <div class="impact-hero__content">
+          <span class="impact-hero__tag">Ricerca Scientifica &bull; INFN Bari &bull; UniBa</span>
+          <h1 class="impact-hero__title">Metodologie Avanzate di Fisica e Intelligenza Artificiale per la Salute</h1>
+          <p class="impact-hero__lede">
+            Sviluppiamo modelli computazionali, algoritmi di machine learning e analisi quantitative
+            di sistemi complessi per la diagnosi precoce, la medicina personalizzata e lo studio dei
+            dati genomici, ambientali e neurofisiologici.
+          </p>
+          <div class="impact-hero__actions">
+            <a href="research.html" class="btn btn-amber">Linee di Ricerca &rarr;</a>
+            <a href="people.html" class="btn btn-light">Il Nostro Team</a>
+            <a href="join-us.html" class="btn btn-light">Opportunità di Tesi</a>
+          </div>
+        </div>
+
+        <div class="focus-grid" aria-label="Ambiti di applicazione e tecnologie">
+          <article class="focus-card reveal">
+            <span class="focus-card__tag">fMRI &bull; DTI &bull; EEG</span>
+            <h3 class="focus-card__title">Connettività cerebrale</h3>
+            <p class="focus-card__desc">Marcatori neurodegenerativi per Alzheimer, Parkinson e disturbi dello spettro autistico.</p>
+          </article>
+          <article class="focus-card reveal reveal-delay-1">
+            <span class="focus-card__tag">CAD &bull; Deep Learning</span>
+            <h3 class="focus-card__title">Imaging diagnostico</h3>
+            <p class="focus-card__desc">Rilevazione assistita in TC polmonare e screening senologico multimodale.</p>
+          </article>
+          <article class="focus-card reveal reveal-delay-2">
+            <span class="focus-card__tag">ReCaS HPC &bull; Cloud INFN</span>
+            <h3 class="focus-card__title">Big data biomedicali</h3>
+            <p class="focus-card__desc">Analisi su scala petabyte di dataset clinici e biologici multicentrici.</p>
+          </article>
+        </div>
+      </div>
+
+      <span class="impact-hero__scroll" aria-hidden="true">Scorri</span>
+    </section>
+
+    <!-- ==================================================== -->
+    <!-- 2. BANDA DEI DATI -->
+    <!-- ==================================================== -->
+    <section class="impact-metrics" aria-label="Il gruppo in numeri">
+      <div class="container">
+        <div class="impact-metrics__grid" id="metricsGrid">
+          <div class="metric">
+            <div class="metric__value"><span class="metric__num" data-target="5" data-pad="2">05</span><i>+</i></div>
+            <div class="metric__label">Linee di ricerca</div>
+          </div>
+          <div class="metric">
+            <div class="metric__value"><span class="metric__num" data-target="4" data-pad="2">04</span><i>+</i></div>
+            <div class="metric__label">Progetti finanziati</div>
+          </div>
+          <div class="metric">
+            <div class="metric__value"><span class="metric__num" data-target="11" data-pad="2">11</span></div>
+            <div class="metric__label">Sezioni del portale</div>
+          </div>
+          <div class="metric">
+            <div class="metric__value"><span class="metric__num" data-target="2" data-pad="2">02</span></div>
+            <div class="metric__label">Affiliazioni istituzionali</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================== -->
+    <!-- 3. CHI SIAMO — GRIGLIA ASIMMETRICA 60/40 -->
+    <!-- ==================================================== -->
+    <section class="section-block">
+      <div class="container split">
+        <div class="column--wide">
+          <div class="kicker reveal">01 &mdash; Chi siamo</div>
+          <h2 class="ed-title reveal reveal-delay-1">La convergenza tra fisica, dati e medicina</h2>
+          <div class="prose" style="margin-top: 26px;">
+            <p class="reveal reveal-delay-2">
+              Il gruppo congiunto <strong>Medical Physics and Complex Systems</strong>, attivo presso il
+              Dipartimento Interateneo di Fisica dell'Università degli Studi di Bari Aldo Moro e la Sezione
+              INFN di Bari, unisce le competenze della <strong>fisica teorica e applicata</strong> con
+              l'elaborazione dei <strong>big data biomedici</strong>.
+            </p>
+            <p class="reveal reveal-delay-2">
+              Dalla <span class="prose-rule">segmentazione di noduli polmonari in TC</span> allo studio
+              della <span class="prose-rule">connettività cerebrale</span>, fino all'analisi di
+              <span class="prose-rule">reti geniche e socio-economiche</span>: ogni linea di ricerca parte
+              da un problema clinico reale e si traduce in strumenti quantitativi, riproducibili e
+              accessibili alla comunità medico-scientifica.
+            </p>
+            <p class="reveal reveal-delay-2">
+              I metodi sviluppati trovano applicazione nella <strong>diagnosi assistita da computer (CAD)</strong>,
+              nella <strong>medicina personalizzata</strong> e nelle infrastrutture ad alte prestazioni
+              (ReCaS Bari, Cloud INFN) per l'analisi di dataset clinici multicentrici su larga scala.
+            </p>
+          </div>
+        </div>
+
+        <aside class="column--narrow reveal reveal-delay-2">
+          <blockquote class="pullquote">
+            Ogni algoritmo che sviluppiamo ha un impatto diretto sulla diagnosi dei pazienti: la fisica
+            medica unisce il rigore del metodo sperimentale alla cura della persona.
+          </blockquote>
+          <div class="pullquote__attr">&mdash; Frontespizio del gruppo di ricerca</div>
+
+          <div class="side-note">
+            <strong>Nota editoriale</strong>
+            <p>
+              Il gruppo partecipa a competizioni internazionali quali la DREAM Alzheimer's Disease Big Data
+              Challenge, condividendo pipeline, dataset e metriche con la comunità scientifica.
+            </p>
+            <span class="tag">#complex-systems &bull; #medical-imaging &bull; #hpc</span>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ==================================================== -->
+    <!-- 4. AREE CHIAVE DI RICERCA — BENTO -->
+    <!-- ==================================================== -->
+    <section class="section-block" style="background: var(--paper-2); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);">
+      <div class="container">
+        <div class="kicker reveal">02 &mdash; Aree di ricerca</div>
+        <h2 class="ed-title reveal reveal-delay-1">Tre fronti, un unico metodo quantitativo</h2>
+        <p class="ed-lead reveal reveal-delay-1">
+          Scienza dei dati, fisica dei sistemi complessi e strumenti di imaging lavorano su problemi clinici
+          che attraversano la diagnostica, la genomica e la radioprotezione.
+        </p>
+
+        <div class="bento">
+          <article class="bento-card bento-card--1 reveal">
+            <div class="bento-card__figure">
+              <span class="bento-card__index">01</span>
+              <img src="assets/images/original/dti_brain_network.jpg" alt="Brain network - connettoma cerebrale" class="bento-card__img" loading="lazy">
+            </div>
+            <div class="bento-card__body">
+              <span class="bento-card__badge">Imaging Biomedico &amp; Neuroimaging</span>
+              <h3 class="bento-card__title">Brain Imaging &amp; Connectivity</h3>
+              <p class="bento-card__text">
+                Modelli di machine learning e connettività cerebrale (fMRI, DTI, EEG) per la diagnosi
+                precoce di Alzheimer, Parkinson e disturbi dello spettro autistico, con sistemi CAD
+                per la segmentazione di noduli in TC e lo screening senologico.
+              </p>
+              <a href="research.html#brain" class="bento-card__link">Scopri la linea <span class="arr">&rarr;</span></a>
+            </div>
+          </article>
+
+          <article class="bento-card bento-card--2 reveal reveal-delay-1">
+            <div class="bento-card__figure">
+              <span class="bento-card__index">02</span>
+              <img src="assets/images/original/culture_of_rat_brain_cells_stained_with_antibody_to_map2_green_neurofilament_red_and_dna_blue.jpg" alt="Cultura di cellule neuronali - biologia molecolare" class="bento-card__img" loading="lazy">
+            </div>
+            <div class="bento-card__body">
+              <span class="bento-card__badge">Sistemi Complessi</span>
+              <h3 class="bento-card__title">Reti &amp; Genomica</h3>
+              <p class="bento-card__text">
+                Teoria dei grafi e fisica statistica applicate a reti di co-espressione genica, dinamiche
+                epidemiologiche e socio-economiche.
+              </p>
+              <a href="research.html#complex-systems" class="bento-card__link">Approfondisci <span class="arr">&rarr;</span></a>
+            </div>
+          </article>
+
+          <article class="bento-card bento-card--3 reveal reveal-delay-2">
+            <div class="bento-card__figure">
+              <span class="bento-card__index">03</span>
+              <img src="assets/images/original/cheek_cell_phase_contrast.jpg" alt="Cellula in contrasto di fase - microscopia avanzata" class="bento-card__img" loading="lazy">
+            </div>
+            <div class="bento-card__body">
+              <span class="bento-card__badge">Calcolo &amp; Radiazioni</span>
+              <h3 class="bento-card__title">Phase Contrast &amp; HPC</h3>
+              <p class="bento-card__text">
+                Imaging a raggi X a contrasto di fase e analisi computazionale su cluster distribuiti
+                (ReCaS, Cloud INFN).
+              </p>
+              <a href="projects.html" class="bento-card__link">I nostri progetti <span class="arr">&rarr;</span></a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+   <!-- ==================================================== -->
+   <!-- 5. LABORATORIO INTERATTIVO — WIDGET CAD (VANILLA) -->
+   <!-- ==================================================== -->
+    <section class="section-block">
+      <div class="container">
+        <div class="kicker reveal">03 &mdash; Prova tu stesso</div>
+        <h2 class="ed-title reveal reveal-delay-1">Il metodo, in movimento</h2>
+
+        <div class="lab reveal reveal-delay-1" style="margin-top: 34px;">
+          <div class="lab__grid">
+            <div class="lab__stage" id="labStage" aria-label="Tomografia computerizzata del torace con analisi AI">
+              <img src="assets/images/original/lung_ct_xray.png" alt="TC torace - nodulo polmonare" loading="lazy">
+              <div class="lab-ai" aria-hidden="true">
+                <span class="lab-ai__scan"></span>
+                <span class="lab-ai__ring"></span>
+                <span class="lab-ai__cross"></span>
+                <span class="lab-ai__chip lab-ai__chip--a">CAD &bull; nodulo sospetto</span>
+                <span class="lab-ai__chip lab-ai__chip--b">Confidenza: 88% &bull; diam. 9 mm</span>
+              </div>
+            </div>
+            <div class="lab__side">
+              <span class="lab__kicker">Computer-Aided Detection</span>
+              <h3 class="lab__title">TC polmonare: dall'immagine grezza all'evidenza</h3>
+              <p class="lab__text">
+                La pipeline sviluppata dal gruppo segmenta automaticamente i noduli, ne stima dimensione e
+                confidenza diagnostica e restituisce l'evidenza al radiologo. Attiva la vista AI per
+                visualizzare l'output del sistema sullo stesso esame.
+              </p>
+              <div class="lab__controls">
+                <button type="button" class="lab__btn is-on" data-lab="raw">Immagine grezza</button>
+                <button type="button" class="lab__btn" data-lab="ai">Pipeline AI &bull; CAD</button>
+              </div>
+              <p class="lab__readout" id="labReadout">
+                Modalità: osservazione radiologica dell'esame originale.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================== -->
+    <!-- 6. NEWSROOM — ARCHIVIO FILTRABILE -->
+    <!-- ==================================================== -->
+    <section class="section-block" style="background: var(--paper-2); border-top: 1px solid var(--rule);">
+      <div class="container">
+        <div class="kicker reveal">04 &mdash; Dalla newsroom</div>
+        <h2 class="ed-title reveal reveal-delay-1">Bandi, progetti, seminari e pubblicazioni</h2>
+
+        <div class="pills reveal reveal-delay-1" role="group" aria-label="Filtra gli annunci">
+          <button type="button" class="pill is-on" data-filter="tutti">Tutti</button>
+          <button type="button" class="pill" data-filter="bandi">Bandi &amp; Tesi</button>
+          <button type="button" class="pill" data-filter="pubblicazioni">Pubblicazioni</button>
+          <button type="button" class="pill" data-filter="progetti">Progetti</button>
+          <button type="button" class="pill" data-filter="seminari">Seminari</button>
+        </div>
+
+        <div class="news-index reveal reveal-delay-2" id="newsIndex">
+          <div class="news-index__meta">
+            <span>Annunci &amp; notizie</span>
+            <span id="newsCount">4 voci</span>
+          </div>
+
+          <!-- VOCE NOTIZIA: Inizio -->
+          <article class="news-row reveal" data-category="bandi">
+            <div class="news-row__year">2026</div>
+            <div class="news-row__main">
+              <span class="news-row__badge">Bandi &amp; Tesi</span>
+              <h3 class="news-row__title">
+                <a href="join-us.html">Disponibili argomenti per tesi di Laurea Triennale e Magistrale</a>
+              </h3>
+              <p class="news-row__text">
+                Candidate per tesi in Fisica, Informatica e Data Science su: Deep Learning per il neuroimaging,
+                modelli di connettività cerebrale e intelligenza artificiale per l'imaging a raggi X.
+              </p>
+              <a class="news-row__to" href="join-us.html">Consulta le proposte</a>
+            </div>
+          </article>
+          <!-- VOCE NOTIZIA: Fine -->
+
+          <!-- VOCE NOTIZIA: Inizio -->
+          <article class="news-row reveal" data-category="pubblicazioni">
+            <div class="news-row__year">2026</div>
+            <div class="news-row__main">
+              <span class="news-row__badge">Pubblicazioni</span>
+              <h3 class="news-row__title">
+                <a href="publications.html">Nuovi contributi su riviste internazionali</a>
+              </h3>
+              <p class="news-row__text">
+                Recenti lavori sull'applicazione di reti complesse per la diagnosi differenziale e l'analisi
+                di biomarcatori multimodali, pubblicati su riviste di settore.
+              </p>
+              <a class="news-row__to" href="publications.html">Esplora le pubblicazioni</a>
+            </div>
+          </article>
+          <!-- VOCE NOTIZIA: Fine -->
+
+          <!-- VOCE NOTIZIA: Inizio -->
+          <article class="news-row reveal" data-category="progetti">
+            <div class="news-row__year">2025</div>
+            <div class="news-row__main">
+              <span class="news-row__badge">Progetti</span>
+              <h3 class="news-row__title">
+                <a href="projects.html">ReCaS: infrastruttura di calcolo per i big data biomedici</a>
+              </h3>
+              <p class="news-row__text">
+                Il gruppo usa il cluster ReCaS Bari e il Cloud INFN per l'addestramento di modelli di deep
+                learning e l'analisi di dataset clinici multicentrici su larga scala.
+              </p>
+              <a class="news-row__to" href="projects.html">Leggi il progetto</a>
+            </div>
+          </article>
+          <!-- VOCE NOTIZIA: Fine -->
+
+          <!-- VOCE NOTIZIA: Inizio -->
+          <article class="news-row reveal" data-category="seminari">
+            <div class="news-row__year">2025</div>
+            <div class="news-row__main">
+              <span class="news-row__badge">Seminari</span>
+              <h3 class="news-row__title">
+                <a href="courses.html">Ciclo di seminari: machine learning per il neuroimaging</a>
+              </h3>
+              <p class="news-row__text">
+                Un ciclo di lezioni e laboratori dedicato a studenti e ricercatori sulle tecniche di analisi
+                di dati fMRI/DTI ed elaborazione di immagini biomediche.
+              </p>
+              <a class="news-row__to" href="courses.html">Consulta il programma</a>
+            </div>
+          </article>
+          <!-- VOCE NOTIZIA: Fine -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================== -->
+    <!-- 7. CTA FINALE -->
+    <!-- ==================================================== -->
+    <section class="impact-cta">
+      <span class="impact-cta__tag reveal">Lavora con noi</span>
+      <h2 class="impact-cta__title reveal reveal-delay-1">Unisciti al gruppo di ricerca</h2>
+      <p class="impact-cta__text reveal reveal-delay-1">
+        Tesi triennali e magistrali, dottorati in Fisica e Applied Physics, assegni di ricerca e posizioni
+        post-doc nei campi della fisica medica e dell'intelligenza artificiale.
+      </p>
+      <div class="impact-cta__actions reveal reveal-delay-2">
+        <a href="join-us.html" class="btn btn-amber">Opportunità di Tesi &amp; Bandi &rarr;</a>
+        <a href="people.html" class="btn btn-light">Conosci il Team</a>
+      </div>
+    </section>
+
+  </main>
+
+
+
+  <!-- ======================================================== -->
+  <!-- PIÈ DI PAGINA (FOOTER ISTITUZIONALE) -->
+  <!-- ======================================================== -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h4>Medical Physics &amp; Complex Systems</h4>
+          <p>
+            Gruppo congiunto di ricerca tra l'Istituto Nazionale di Fisica Nucleare (INFN - Sezione di Bari) e
+            l'Università degli Studi di Bari Aldo Moro.
+          </p>
+          <p>
+            Sede: Via E. Orabona, 4 &bull; 70125 Bari, Italia<br>
+            Email di riferimento: <a href="mailto:roberto.bellotti@uniba.it">roberto.bellotti@uniba.it</a> |
+            <a href="mailto:sonia.tangaro@uniba.it">sonia.tangaro@uniba.it</a>
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Navigazione Rapida</h4>
+          <ul class="footer-links">
+            <li><a href="people.html">&rsaquo; Membri dello Staff</a></li>
+            <li><a href="research.html">&rsaquo; Linee di Ricerca</a></li>
+            <li><a href="projects.html">&rsaquo; Progetti Finanziati</a></li>
+            <li><a href="publications.html">&rsaquo; Pubblicazioni</a></li>
+            <li><a href="courses.html">&rsaquo; Corsi e Didattica</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Risorse Istituzionali</h4>
+          <ul class="footer-links">
+            <li><a href="https://www.ba.infn.it/" target="_blank" rel="noopener">&rsaquo; INFN Sezione di Bari</a></li>
+            <li><a href="https://www.uniba.it/" target="_blank" rel="noopener">&rsaquo; Università di Bari</a></li>
+            <li><a href="https://www.uniba.it/it/ricerca/dipartimenti/fisica" target="_blank" rel="noopener">&rsaquo; Dip. Interateneo di Fisica</a></li>
+            <li><a href="conference-slides.html">&rsaquo; Archivio Slide Conferenze</a></li>
+            <li><a href="join-us.html">&rsaquo; Lavora / Tesi con Noi</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; Medical Physics and Complex Systems Group &bull; INFN Bari &amp; UniBa &bull; Design & Web Development by Lorenzo de Trizio - ReCaS IT Group.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Script Vanilla: menu mobile (condiviso) -->
+  <script src="assets/js/main.js"></script>
+
+  <!-- Widget laboratorio, filtro newsroom, rivelazione allo scroll, tepore progressivo -->
+  <script>
+    (function () {
+      'use strict';
+
+      // --- Widget CAD: toggle grezzo / AI ---
+      var stage = document.getElementById('labStage');
+      var readout = document.getElementById('labReadout');
+      var btns = document.querySelectorAll('.lab__btn');
+
+      function setMode(mode) {
+        btns.forEach(function (b) {
+          var on = b.getAttribute('data-lab') === mode;
+          b.classList.toggle('is-on', on);
+        });
+        if (stage) {
+          stage.classList.toggle('is-active', mode === 'ai');
+          if (readout) {
+            readout.textContent = mode === 'ai'
+              ? 'Modalità: pipeline AI attiva — nodulo rilevato, confidenza 88%, diametro stimato 9 mm.'
+              : 'Modalità: osservazione radiologica dell\'esame originale.';
+          }
+        }
+      }
+
+      btns.forEach(function (b) {
+        b.addEventListener('click', function () {
+          setMode(b.getAttribute('data-lab'));
+        });
+      });
+      setMode('raw');
+
+      // --- Filtro newsroom ---
+      var pills = document.querySelectorAll('.pill');
+      var rows = document.querySelectorAll('.news-row');
+      var count = document.getElementById('newsCount');
+
+      pills.forEach(function (p) {
+        p.addEventListener('click', function () {
+          pills.forEach(function (x) { x.classList.remove('is-on'); });
+          p.classList.add('is-on');
+          var f = p.getAttribute('data-filter');
+          var n = 0;
+          rows.forEach(function (r) {
+            var show = f === 'tutti' || r.getAttribute('data-category') === f;
+            r.classList.toggle('is-hidden', !show);
+            if (show) n++;
+          });
+          if (count) count.textContent = n + ' ' + (n === 1 ? 'voce' : 'voci');
+        });
+      });
+
+      // --- Rivelazione all'entrata nello scorrimento ---
+      var rev = document.querySelectorAll('.reveal');
+      if ('IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) { e.target.classList.add('is-inview'); io.unobserve(e.target); }
+          });
+        }, { threshold: 0.15 });
+        rev.forEach(function (el) { io.observe(el); });
+      } else {
+        rev.forEach(function (el) { el.classList.add('is-inview'); });
+      }
+
+      // --- Tepore progressivo: la "carta" vira verso l'ambra serale ---
+      var FROM = [244, 241, 236];
+      var TO = [234, 223, 206];
+      function warmth() {
+        var max = document.documentElement.scrollHeight - window.innerHeight;
+        var p = max > 0 ? Math.min(1, window.scrollY / max) : 0;
+        var rgb = FROM.map(function (f, i) { return Math.round(f + (TO[i] - f) * p); });
+        document.documentElement.style.setProperty('--paper', 'rgb(' + rgb.join(',') + ')');
+      }
+      window.addEventListener('scroll', warmth, { passive: true });
+      warmth();
+
+      // --- Dinamismo: avanzamento, header "scorso", parallasse hero ---
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var progress = document.getElementById('scrollProgress');
+      var headerEl = document.querySelector('.site-header');
+      var hero = document.getElementById('impactHero');
+      var heroBg = hero ? hero.querySelector('.impact-hero__bg') : null;
+      var ticking = false;
+
+      function onScroll() {
+        var max = document.documentElement.scrollHeight - window.innerHeight;
+        var p = max > 0 ? Math.min(1, window.scrollY / max) : 0;
+        if (progress) progress.style.transform = 'scaleX(' + p + ')';
+        if (headerEl) headerEl.classList.toggle('is-scrolled', window.scrollY > 24);
+        if (heroBg && !reduce && !ticking) {
+          ticking = true;
+          requestAnimationFrame(function () {
+            var y = window.scrollY;
+            if (y < window.innerHeight * 1.3) {
+              heroBg.style.transform = 'translate3d(0,' + (y * 0.18).toFixed(1) + 'px,0) scale(' + (1.06 + Math.min(y / 3000, 0.08)).toFixed(3) + ')';
+            }
+            ticking = false;
+          });
+        }
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+
+      // --- Alone che segue il cursore nell'hero ---
+      if (hero && !reduce) {
+        hero.addEventListener('pointermove', function (e) {
+          var r = hero.getBoundingClientRect();
+          hero.style.setProperty('--gx', ((e.clientX - r.left) / r.width * 100).toFixed(1) + '%');
+          hero.style.setProperty('--gy', ((e.clientY - r.top) / r.height * 100).toFixed(1) + '%');
+          hero.classList.add('is-hovering');
+        });
+        hero.addEventListener('pointerleave', function () { hero.classList.remove('is-hovering'); });
+      }
+
+      // --- Contatori animati delle metriche ---
+      var grid = document.getElementById('metricsGrid');
+      var nums = grid ? grid.querySelectorAll('.metric__num') : [];
+
+      function runCounters() {
+        nums.forEach(function (el) {
+          var target = parseInt(el.getAttribute('data-target'), 10) || 0;
+          var pad = parseInt(el.getAttribute('data-pad'), 10) || 0;
+          if (reduce) { el.textContent = String(target).padStart(pad, '0'); return; }
+          var start = null, dur = 1300;
+          requestAnimationFrame(function step(ts) {
+            if (start === null) start = ts;
+            var t = Math.min((ts - start) / dur, 1);
+            var eased = 1 - Math.pow(1 - t, 3);
+            el.textContent = String(Math.round(target * eased)).padStart(pad, '0');
+            if (t < 1) requestAnimationFrame(step);
+          });
+        });
+      }
+
+      if (grid) {
+        if ('IntersectionObserver' in window) {
+          var mIO = new IntersectionObserver(function (entries) {
+            entries.forEach(function (e) {
+              if (e.isIntersecting) { grid.classList.add('is-inview'); runCounters(); mIO.unobserve(grid); }
+            });
+          }, { threshold: 0.2 });
+          mIO.observe(grid);
+        } else {
+          grid.classList.add('is-inview');
+          runCounters();
+        }
+      }
+
+      // --- Bento: tilt 3D + spotlight che segue il cursore ---
+      if (!reduce) {
+        document.querySelectorAll('.bento-card').forEach(function (card) {
+          var fig = card.querySelector('.bento-card__figure');
+          card.addEventListener('pointermove', function (e) {
+            var r = card.getBoundingClientRect();
+            var px = (e.clientX - r.left) / r.width;
+            var py = (e.clientY - r.top) / r.height;
+            card.style.setProperty('--ry', ((px - 0.5) * 6).toFixed(2) + 'deg');
+            card.style.setProperty('--rx', ((0.5 - py) * 6).toFixed(2) + 'deg');
+            if (fig) {
+              fig.style.setProperty('--mx', (px * 100).toFixed(1) + '%');
+              fig.style.setProperty('--my', (py * 100).toFixed(1) + '%');
+            }
+          });
+          card.addEventListener('pointerleave', function () {
+            card.style.setProperty('--rx', '0deg');
+            card.style.setProperty('--ry', '0deg');
+          });
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

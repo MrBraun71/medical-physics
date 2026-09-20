@@ -1,0 +1,67 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 1073 >>
+stream
+BT
+/F1 11 Tf
+50 780 Td
+(INFN Sezione di Bari & Dipartimento Interateneo di Fisica - Universita di Bari) Tj
+0 -16 Td
+(Medical Physics and Complex Systems Research Group) Tj
+0 -24 Td
+/F1 18 Tf
+(Deep Learning and Graph Metrics for Early Alzheimer's Diagnosis f) Tj
+0 -22 Td
+(rom Multi-Site MRI) Tj
+0 -28 Td
+/F1 12 Tf
+(Conferenza: IEEE International Symposium on Biomedical Imaging ISBI) Tj
+0 -18 Td
+(Relatore: Prof.ssa Sabina Tangaro | Data: Aprile 2023) Tj
+0 -36 Td
+/F1 14 Tf
+(Punti Chiave della Presentazione / Slide Highlights:) Tj
+/F1 11 Tf
+0 -24 Td
+(* Deep convolutional neural networks for automated feature extraction on 3D brain ) Tj
+0 -15 Td
+(  T1 scans.) Tj
+0 -24 Td
+(* Harmonization techniques for multi-site neuroimaging cohorts \(ADNI, PPMI\).) Tj
+0 -24 Td
+(* Cross-validation performance: AUC > 0.92 in differentiating MCI converters vs no) Tj
+0 -15 Td
+(  n-converters.) Tj
+0 -24 Td
+(* Clinical interpretability via saliency mapping and graph centrality indices.) Tj
+0 -50 Td
+/F1 9 Tf
+(Documento ad uso scientifico e didattico - http://medphys.ba.infn.it/) Tj
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000241 00000 n 
+0000001366 00000 n 
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+1436
+%%EOF

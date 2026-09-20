@@ -1,0 +1,65 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 1037 >>
+stream
+BT
+/F1 11 Tf
+50 780 Td
+(INFN Sezione di Bari & Dipartimento Interateneo di Fisica - Universita di Bari) Tj
+0 -16 Td
+(Medical Physics and Complex Systems Research Group) Tj
+0 -24 Td
+/F1 18 Tf
+(Multiplex Brain Network Analysis in Neurodegenerative Disorders) Tj
+0 -28 Td
+/F1 12 Tf
+(Conferenza: International Conference on Complex Networks Complex Networks 2022) Tj
+0 -18 Td
+(Relatore: Prof. Nicola Amoroso | Data: Dicembre 2022) Tj
+0 -36 Td
+/F1 14 Tf
+(Punti Chiave della Presentazione / Slide Highlights:) Tj
+/F1 11 Tf
+0 -24 Td
+(* Multilayer and multiplex graphs to bridge structural \(DTI\) and functional \(fM) Tj
+0 -15 Td
+(  RI\) connectomes.) Tj
+0 -24 Td
+(* Community detection algorithms identifying topological disruptions in early Park) Tj
+0 -15 Td
+(  inson.) Tj
+0 -24 Td
+(* Network resilience and targeted attack simulation on hub nodes.) Tj
+0 -24 Td
+(* Correlation between topological network metrics and cognitive decline scores.) Tj
+0 -50 Td
+/F1 9 Tf
+(Documento ad uso scientifico e didattico - http://medphys.ba.infn.it/) Tj
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000241 00000 n 
+0000001330 00000 n 
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+1400
+%%EOF
