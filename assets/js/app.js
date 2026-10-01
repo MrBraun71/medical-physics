@@ -51,7 +51,7 @@
     }).join("");
     return '<a class="skip" href="#main">Skip to content</a>' +
       '<header class="site-header"><div class="container header-inner">' +
-      '<a class="brand" href="#/home"><img src="' + SITE.logo + '" alt="Medical Physics">' +
+      '<a class="brand" href="#/home">' +
       '<span class="bt"><strong>' + t(SITE.short) + "</strong><span>" + t(SITE.brand) + "</span></span></a>" +
       toggle + '<nav class="main-nav" id="mainnav" aria-label="Main">' + items + langBox + "</nav>" +
       "</div></header>";
@@ -79,6 +79,8 @@
       '<li><a href="https://www.ba.infn.it" target="_blank" rel="noopener">INFN Bari</a></li>' +
       "</ul></div></div>" +
       '<div class="copyright"><span>\u00a9 ' + new Date().getFullYear() + " " + t(SITE.brand) +
+      " \u2022 " + t({ en: "Realized by Lorenzo de Trizio", it: "Realizzato da Lorenzo de Trizio" }) +
+      " \u2022 " + t({ en: "University of Bari Aldo Moro", it: "Universit\u00e0 degli Studi di Bari Aldo Moro" }) +
       '</span><span class="footer-lang">' +
       '<button data-setlang="en" class="' + (lang === "en" ? "on" : "") + '">English</button>' +
       '<button data-setlang="it" class="' + (lang === "it" ? "on" : "") + '">Italiano</button>' +
