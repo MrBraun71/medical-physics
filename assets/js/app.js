@@ -177,9 +177,8 @@
   }
 
   function renderPeople() {
-    var html = pageHero(t(SITE.sections.people), t({ en: "Researchers, technologists and collaborators of the Medical Physics group.", it: "Ricercatori, tecnologi e collaboratori del gruppo di Fisica Medica." }));
+    var html = pageHero(t(SITE.sections.people), t({ en: "Researchers and technologists of the Medical Physics group.", it: "Ricercatori e tecnologi del gruppo di Fisica Medica." }));
     html += '<section class="section"><div class="container"><div class="section-head"><h2>' + t(SITE.sections.people) + "</h2></div>" + staffGrid(SITE.people || []) + "</div></section>";
-    html += '<section class="section alt"><div class="container"><div class="section-head"><h2>' + t(SITE.sections.collaborators) + "</h2></div>" + staffGrid(SITE.collaborators || []) + "</div></section>";
     return html;
   }
 
