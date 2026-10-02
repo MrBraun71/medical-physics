@@ -1,0 +1,12 @@
+version: 2
+updates:
+  # Le action sono fissate a un commit SHA: senza questo controllo un tag
+  # spostabile diventerebbe un vettore di esecuzione arbitraria.
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "ci"
+    labels:
+      - "dependencies"

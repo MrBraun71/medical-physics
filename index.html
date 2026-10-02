@@ -5,14 +5,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Medical Physics &amp; Complex Systems</title>
 <meta name="description" content="Medical Physics and Complex Systems group at the University of Bari Aldo Moro and INFN Bari: medical imaging, artificial intelligence and complex networks.">
+
+<!-- Politica di sicurezza applicata alla pagina.
+     `frame-ancestors` e `sandbox` non sono applicabili via <meta> (valgono solo
+     come header HTTP): vanno impostati sull'hosting, quindi sono assenti qui. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src https://www.youtube-nocookie.com; object-src 'none'; base-uri 'self'; form-action 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <link rel="icon" href="assets/img/cropped-586px-Cheek_cell_phase_contrast-1.jpg">
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 <div id="app"></div>
+<noscript>
+  <p>Questo sito richiede JavaScript. Per i contenuti in formato statico, contatta il gruppo.</p>
+</noscript>
 <script src="assets/data/site-data.js"></script>
 <script src="assets/data/pages_en.js"></script>
 <script src="assets/data/i18n.js"></script>
+<script src="assets/js/sanitize.js"></script>
 <script src="assets/js/app.js"></script>
 </body>
 </html>

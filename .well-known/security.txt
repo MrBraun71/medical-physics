@@ -1,0 +1,4 @@
+Contact: https://github.com/MrBraun71/medical-physics/security/advisories/new
+Expires: 2027-10-01T00:00:00.000Z
+Preferred-Languages: en, it
+Canonical: https://mrbraun71.github.io/medical-physics/.well-known/security.txt

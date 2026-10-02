@@ -1,8 +1,46 @@
 # -*- coding: utf-8 -*-
-import json, os
+import json, os, re
 
-OUT = r'E:\MedPhys_Sito\assets\data'
-os.makedirs(OUT, exist_ok=True)
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+OUT = os.path.join(ROOT, 'assets', 'data')
+
+ALLOWED_SCHEMES = ('http', 'https', 'mailto', 'tel')
+
+
+def safe_url(value, kind='link'):
+    """Normalizza un URL e ne blocca gli schemi pericolosi.
+
+    Serve in particolare per il newsroom: la lista conteneva link in chiaro
+    `http://`. `http` resta ammesso come schema per non perdere le voci, ma
+    viene sempre promosso a `https` prima di finire nel dato pubblicato.
+    """
+    raw = str(value or '').strip()
+    if not raw or any(ch.isspace() or ord(ch) < 32 for ch in raw):
+        return ''
+    if kind == 'link' and raw.startswith('#'):
+        return raw
+    match = re.match(r'([a-zA-Z][a-zA-Z0-9+.-]*):', raw)
+    if match:
+        scheme = match.group(1).lower()
+        if scheme not in ALLOWED_SCHEMES:
+            return ''
+        if scheme == 'http':
+            raw = 'https://' + raw[len('http://'):]
+    return raw
+
+
+def js(value):
+    """Serializza in JSON bloccando la chiusura del tag <script>.
+
+    Espone `<`, `>` e `&` come escape Unicode e separa U+2028/U+2029, che il
+    parser JavaScript considera terminatori di riga.
+    """
+    return (json.dumps(value, ensure_ascii=False)
+            .replace(chr(0x2028), '\\u2028')
+            .replace(chr(0x2029), '\\u2029')
+            .replace('<', '\\u003c')
+            .replace('>', '\\u003e')
+            .replace('&', '\\u0026'))
 
 SITE = {
   "brand": {"en": "Medical Physics & Complex Systems", "it": "Fisica Medica e Sistemi Complessi"},
@@ -142,8 +180,8 @@ SITE["people"] = [
   person("ester-pantaleo", "assets/img/Ester_Pantaleo.png",
     "Genomics, Natural Language Processing, Earth Observation",
     "Genomica, Elaborazione del linguaggio naturale, Osservazione della Terra",
-    "Ester Pantaleo is a researcher (RTD-A) at the University of Bari. Her research interests focus on applications of Artificial Intelligence to Medical Physics and Remote Sensing.",
-    "Ester Pantaleo \u00e8 ricercatrice (RTD-A) presso l\u2019Universit\u00e0 di Bari. I suoi interessi di ricerca si concentrano sulle applicazioni dell\u2019intelligenza artificiale alla fisica medica e al telerilevamento.",
+    "Ester Pantaleo is a researcher (RTT) at the University of Bari. Her research interests focus on applications of Artificial Intelligence to Medical Physics and Remote Sensing.",
+    "Ester Pantaleo \u00e8 ricercatrice (RTT) presso l\u2019Universit\u00e0 di Bari. I suoi interessi di ricerca si concentrano sulle applicazioni dell\u2019intelligenza artificiale alla fisica medica e al telerilevamento.",
     "ester.pantaleo@uniba.it"),
   person("domenico-diacono", "assets/img/new_diacono.jpg",
     "Machine Learning, Explainable Artificial Intelligence",
@@ -198,6 +236,18 @@ SITE["people"] = [
     "Silvano Quarto is a research fellow in Applied Physics at the University of Bari, Italy. His current research interests are in cybersecurity and blockchain technology by means of artificial intelligence.",
     "Silvano Quarto \u00e8 assegnista di ricerca in Fisica Applicata presso l\u2019Universit\u00e0 di Bari. I suoi interessi di ricerca attuali riguardano la cybersicurezza e la tecnologia blockchain mediante intelligenza artificiale.",
     "s.quarto4@studenti.uniba.it"),
+  person("domenico-pomarico", "assets/img/domenico_pomarico.jpeg",
+    "Quantum machine learning, Complex Systems, Multiomics, Earth Observation",
+    "Quantum machine learning, Sistemi complessi, Multiomics, Osservazione della Terra",
+    "Domenico Pomarico is a researcher in applied physics at the University of Bari, Italy. His current research interests span quantum machine learning, complex systems, multi-omics data analysis, and Earth Observation, with a focus on advanced computational methods for extracting and interpreting complex patterns in high-dimensional data.",
+    "Domenico Pomarico \u00e8 un ricercatore di fisica applicata presso l'Universit\u00e0 di Bari. I suoi interessi di ricerca attuali riguardano il quantum machine learning, i sistemi complessi, l'analisi di dati multi-omics e l'Osservazione della Terra, con un focus su metodi computazionali avanzati per l'estrazione e l'interpretazione di pattern complessi in dati ad alta dimensionalit\u00e0.",
+    "domenico.pomarico@uniba.it"),
+  person("michele-magarelli", "assets/img/michele_magarelli.jpeg",
+    "Agrifood, Biology, Microbiome",
+    "Agroalimentare, Biologia, Microbioma",
+    "Michele Magarelli is a Research Fellow at the University of Bari Aldo Moro, where he obtained his PhD in Sustainable Land Management. His current research interests include Artificial Intelligence, Explainable AI, Machine Learning, multi-omics and microbiome data analysis, with applications in the biomedical, agri-food, and environmental fields.",
+    "Michele Magarelli \u00e8 assegnista di ricerca presso l'Universit\u00e0 degli Studi di Bari Aldo Moro, dove ha conseguito il dottorato in Gestione Sostenibile del Territorio. I suoi interessi di ricerca attuali includono Intelligenza Artificiale, AI Spiegabile, Machine Learning, analisi di dati multi-omics e del microbioma, con applicazioni nei campi biomedico, agroalimentare e ambientale.",
+    "michele.magarelli@uniba.it"),
 ]
 
 SITE["collaborators"] = [
@@ -432,13 +482,32 @@ NEWS = [
   ("New Scientist", "newScientist.png", "https://www.newscientist.com/article/2147472-ai-spots-alzheimers-brain-changes-years-before-symptoms-emerge/"),
   ("Barletta News", "logo-barletta_news-magazine-160x90.png", "http://www.barlettanews.it/alzheimer-intervista-al-prof-roberto-bellotti/"),
 ]
-SITE["newsroom"] = [{"name": n, "img": "assets/img/" + f, "url": u} for (n, f, u) in NEWS]
+# Il newsroom passa dalla normalizzazione: nessun http:// in chiaro raggiunge
+# il dato pubblicato, e un URL con schema non ammesso verrebbe scartato.
+def news_item(entry):
+    name, image, url = entry
+    safe = safe_url(url)
+    if not safe:
+        print('  scartato (URL non ammesso):', name, '|', url)
+    return {"name": name, "img": "assets/img/" + image, "url": safe}
 
-with open(os.path.join(OUT, 'site-data.js'), 'w', encoding='utf-8') as fh:
-    s = json.dumps(SITE, ensure_ascii=False).replace('</', '<\\/')
-    fh.write('window.MEDPHYS_SITE = ' + s + ';\n')
 
-print('site-data.js', os.path.getsize(os.path.join(OUT, 'site-data.js')))
-print('people', len(SITE['people']), 'collab', len(SITE['collaborators']),
-      'proj', len(SITE['projects']['ongoing']), len(SITE['projects']['past']),
-      'chal', len(SITE['challenges']), 'news', len(SITE['newsroom']))
+SITE["newsroom"] = [news_item(entry) for entry in NEWS]
+
+
+def main():
+    os.makedirs(OUT, exist_ok=True)
+    with open(os.path.join(OUT, 'site-data.js'), 'w', encoding='utf-8') as fh:
+        fh.write('window.MEDPHYS_SITE = ' + js(SITE) + ';\n')
+
+    print('site-data.js', os.path.getsize(os.path.join(OUT, 'site-data.js')))
+    print('people', len(SITE['people']), 'collab', len(SITE['collaborators']),
+          'proj', len(SITE['projects']['ongoing']), len(SITE['projects']['past']),
+          'chal', len(SITE['challenges']), 'news', len(SITE['newsroom']))
+    print('newsroom http in chiaro:', sum(1 for n in SITE['newsroom'] if n['url'].startswith('http://')))
+    print('newsroom scartati:', sum(1 for n in SITE['newsroom'] if not n['url']))
+    return 0
+
+
+if __name__ == '__main__':
+    raise SystemExit(main())

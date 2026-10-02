@@ -12,12 +12,13 @@ Il sito è una **single-page application** con routing basato su `location.hash`
 
 ```text
 index.html
-   │  carica 4 script in quest'ordine
+   │  carica 5 script in quest'ordine
    ├─► assets/data/site-data.js   →  window.MEDPHYS_SITE   (struttura e contenuti brevi, bilingui)
    ├─► assets/data/pages_en.js    →  window.MEDPHYS_EN     (HTML delle pagine lunghe, inglese)
    │                                window.MEDPHYS_META   (titoli e link delle pagine)
    ├─► assets/data/i18n.js        →  window.MEDPHYS_IT     (traduzioni italiane, override)
    │                                window.MEDPHYS_EN_X   (override inglese)
+   ├─► assets/js/sanitize.js      →  window.MedPhysSanitize (sanitizer del markup ricco)
    └─► assets/js/app.js           →  legge le globali, renderizza in #app, gestisce #/rotta
 ```
 
@@ -42,7 +43,7 @@ La lingua scelta viene salvata in `localStorage` (`medphys_lang`) e riproiettata
 | `#/multimedia`, `#/join-us`, `#/courses` | Varie | pagine lunghe |
 | `#/short-course`, `#/conference-slides`, `#/pattern_recognition` | Risorse | protette da password |
 
-Il router è in `assets/js/app.js:311`. Le rotte non riconosciute mostrano una pagina 404.
+Il router è in `assets/js/app.js:459`. Le rotte non riconosciute mostrano una pagina 404.
 
 ---
 
@@ -50,7 +51,7 @@ Il router è in `assets/js/app.js:311`. Le rotte non riconosciute mostrano una p
 
 ```text
 MedPhys_Sito/
-├── index.html                    # unico file HTML: carica CSS + 4 script
+├── index.html                    # unico file HTML: carica CSS + 5 script
 │
 ├── assets/
 │   ├── css/
@@ -64,6 +65,7 @@ MedPhys_Sito/
 │   │   └── meta.json             # titoli/link delle pagine (sorgente di tools/gen_en.py)
 │   ├── img/                      # logo, foto, loghi giornali, grafici (~250 file)
 │   └── js/
+│       ├── sanitize.js            # sanitizer del markup ricco (window.MedPhysSanitize)
 │       └── app.js                # renderer + router + header/footer condivisi
 │
 ├── tools/                        # script Python di migrazione (non servono a far funzionare il sito)
@@ -72,9 +74,15 @@ MedPhys_Sito/
 │   ├── gen_en.py                 # genera pages_en.js da pages_en.json + meta.json
 │   ├── clean_content.py          # pulizia HTML importato dal vecchio sito
 │   ├── group_content.py          # raggruppamento pagine per slug
-│   └── download_images.py        # download delle immagini del vecchio sito
+│   ├── download_images.py        # download delle immagini del vecchio sito
+│   ├── security.test.cjs         # test di sicurezza del runtime (node --test)
+│   ├── render.test.cjs           # test di regressione del rendering
+│   ├── dom-shim.cjs              # DOM minimo per i test, senza dipendenze
+│   └── test_import_pipeline.py   # test dei tool Python (unittest, server locale)
 │
+├── .github/workflows/pages.yml   # deploy su GitHub Pages (build + test di sicurezza)
 ├── nuovo_sito.md                 # specifiche e analisi del progetto
+├── vulnerabilita.md               # rapporto dei 15 finding di sicurezza e del loro stato
 └── README.md                     # questa guida
 ```
 
@@ -105,7 +113,30 @@ Non cercare pagine `people.html` o `publications.html`: non esistono. Le schede,
 **Regola 2: i file in `assets/data/` sono JSON scritti tutto su una riga.**
 Per leggerli e modificarli senza dolori, apri il file in VS Code e usa **Shift+Alt+F** (*Format Document*): il JSON diventa indentato e leggibile. **Ricontrolla la sintassi prima di salvare** — una virgola o una graffa di troppo rompe l'intero sito (che resta bianco, senza errori evidenti).
 
-> I file `.js` in `assets/data/` sono stati generati una volta dagli script in `tools/`. Per l'aggiornamento ordinario si modifica **direttamente il `.js`**: gli script Python servono solo per re-importare il vecchio sito e hanno percorsi assoluti scritti dentro, quindi funzionano solo sulla macchina originale.
+> I file `.js` in `assets/data/` sono stati generati una volta dagli script in `tools/`. Per l'aggiornamento ordinario si modifica **direttamente il `.js`**: gli script Python servono solo per re-importare il vecchio sito. Ora derivano la destinazione dalla propria posizione (niente percorsi assoluti) e hanno le protezioni descritte in `manuale.md` §2.10, ma restano una copia: se modifichi il `.js` a mano, lo script torna obsoleto.
+
+---
+
+### 4.0b Tre regole di sicurezza prima di toccare i dati
+
+Il contenuto HTML che metti in `pages_en.js` / `i18n.js` passa da un filtro
+(`assets/js/sanitize.js`), ma è comunque il posto dove si introducono più
+probabilmente problemi. Tre regole:
+
+1. **Stick all'allow-list di tag e classi** (`manuale.md` §2.3b). Le uniche classi
+   ammesse nel contenuto sono `video-embed` e `pub-entry`. Se serve altro, prova
+   prima a usare `<strong>`, `<em>`, `<ul>`, `<li>`, `<h3>`, `<p>`, `<a>`.
+2. **Niente `style=` e niente `onclick=`.** La Content-Security-Policy li blocca
+   (`style-src 'self'`, `script-src 'self'`): la pagina semplicemente non
+   formatterà correttamente. Le classi nuove vanno in `assets/css/style.css`, i
+   gestori in `app.js` con `addEventListener`.
+3. **Link esterni solo `https://`**, e con `target="_blank"` sempre
+   `rel="noopener noreferrer"`. `javascript:`, `data:` e `http://` vengono
+   scartati.
+
+I video YouTube devono stare su `www.youtube-nocookie.com` con `sandbox`
+e `referrerpolicy`, dentro un `<div class="video-embed">`: la CSP ammette
+quel solo host per `frame-src` (`manuale.md` §7.4).
 
 ---
 
@@ -130,7 +161,7 @@ In `assets/data/site-data.js`, dentro l'array `"people"`:
 ```
 
 Regole:
-- `slug` **obbligatorio e obbligatoriamente `nome-cognome` in minuscolo con trattini**: il nome mostrato viene ricavato dal slug (`nameOf()` in `app.js:150`). `mario-rossi` → "Mario Rossi".
+- `slug` **obbligatorio e obbligatoriamente `nome-cognome` in minuscolo con trattini**: il nome mostrato viene ricavato dal slug (`nameOf()` in `app.js:106`). `mario-rossi` → "Mario Rossi".
 - `img`, `keywords`, `bio` obbligatori; `email` opzionale.
 - Metti la foto in `assets/img/` **prima** di inserire il riferimento.
 - Collocare la persona in `people` (mostrata nella pagina) o in `collaborators` (non mostrata in `#/people`).
@@ -155,17 +186,12 @@ Le pubblicazioni sono organizzate in due livelli.
 }
 ```
 
-**b) Se la categoria esiste già**, il singolo articolo va nel corpo HTML della pagina, in `assets/data/pages_en.js`, dentro `window.MEDPHYS_EN["journal-papers"]`:
+**b) Se la categoria esiste già**, l'articolo va nel corpo HTML della pagina, in `assets/data/pages_en.js`, dentro `window.MEDPHYS_EN["journal-papers"]`. Il contenuto è **prosa** dentro `.prose.pub-list`: titolo in corsivo, autori, rivista, DOI.
 
 ```html
-<li class="pub-item">
-  <span class="pub-authors">Rossi M., Bellotti R.</span>
-  <span class="pub-title">"Titolo dell'articolo."</span>
-  <span class="pub-journal">Nome Rivista, 12(3), 45-67, 2026.</span>
-  <div>
-    <a href="https://doi.org/10.xxxx/xxxx" target="_blank" rel="noopener" class="pub-doi-badge">DOI: 10.xxxx/xxxx</a>
-  </div>
-</li>
+<p><em>Titolo dell'articolo.</em></p>
+<p>Rossi M., Bellotti R.</p>
+<p>Nome Rivista, 12(3), 45-67, 2026. doi:10.xxxx/xxxx</p>
 ```
 
 `window.MEDPHYS_META` nello stesso file serve al titolo della pagina: se crei una pagina nuova, aggiungi anche lì la voce con `title`, `link` e `fn`.
@@ -230,7 +256,7 @@ Tutto in `site-data.js`, chiavi iniziali:
 
 Le voci del menu sono `{ "route": "…", "en": "…", "it": "…" }`; per un menu a tendina aggiungi `children: [{ "route": "…", "en": "…", "it": "…" }]`.
 
-Il footer invece è nel codice: `footer()` in `assets/js/app.js:61`. Testi, crediti e link si modificano lì (i crediti e la lingua corrente sono alla riga 81-87).
+Il footer invece è nel codice: `footer()` in `assets/js/app.js:143`. Testi, crediti e link si modificano lì (i crediti e la lingua corrente sono alle righe 170-174).
 
 ### 4.7 Traduzioni EN/IT
 
@@ -246,7 +272,7 @@ window.MEDPHYS_IT = {
 };
 ```
 
-Ogni oggetto `{ "en": …, "it": … }` viene risolto da `t()` (`app.js:12`): **se manca `it`, viene mostrato `en`**.
+Ogni oggetto `{ "en": …, "it": … }` viene risolto da `t()` (`app.js:47`): **se manca `it`, viene mostrato `en`**.
 
 ---
 
@@ -263,9 +289,9 @@ Ogni oggetto `{ "en": …, "it": … }` viene risolto da `t()` (`app.js:12`): **
    "nuova-pagina": { "title": "Nuova pagina", "link": "…", "fn": "…" }
    ```
 3. Aggiungi la voce di menu in `nav` (`site-data.js`).
-4. Se la pagina ha bisogno di una struttura dedicata (tabelle, griglie custom), aggiungi il caso nel router di `app.js:311`.
+4. Se la pagina ha bisogno di una struttura dedicata (tabelle, griglie custom), aggiungi il caso nel router di `app.js:459`.
 
-Il resto è automatico: se nessun caso del router corrisponde, `renderBase()` (`app.js:289`) mostra la pagina con il contenuto da `pages_en.js` / `i18n.js`.
+Il resto è automatico: se nessun caso del router corrisponde, `renderBase()` (`app.js:420`) mostra la pagina con il contenuto da `pages_en.js` / `i18n.js`.
 
 ---
 
@@ -282,23 +308,58 @@ Script Python usati per la migrazione dal vecchio sito WordPress. **Non servono 
 | `group_content.py` | raggruppa le pagine per slug |
 | `download_images.py` | scarica le immagini dal vecchio sito |
 
-**Attenzione:** contengono percorsi assoluti (`E:\MedPhys_Sito\…`) e leggono da `%TEMP%\mp`. Prima di eseguirli, correggi `OUT` e gli `import`.
+**Attenzione:** ora ricavano la destinazione dalla propria posizione (funzionano su
+qualsiasi checkout), verificano la TLS, scaricano solo da un host ammesso e
+usano la stessa allow-list di URL del sito. L'unica cosa ancora legata a
+Windows è la sorgente `%TEMP%\mp` (su Linux `/tmp/mp`), da procurare a parte.
+Prima di eseguire `build_site_data.py`, ricontrolla che non sovrascriva
+modifiche fatte a mano su `site-data.js` (`manuale.md` §2.10).
 
 ---
 
 ## 7. Messa online
 
-Il sito è pronto per qualsiasi web server statico: basta caricare **tutta** la cartella (root del progetto, non solo `index.html`).
+Il sito è un sito statico pronto per qualsiasi web server, ma **non va
+pubblicata la root del repository**: copieresti anche gli script di migrazione e
+i documenti interni.
 
-- **Linux / Apache / Nginx** — copia il contenuto in una directory pubblica, es. `/var/www/html/medphys/`.
-- **GitLab Pages / GitHub Pages** — committa i file nel branch principale; nessuna configurazione di build richiesta.
-- **Nginx** — se in futuro aggiungerai URL puliti senza `#`, serve un `try_files $uri /index.html;`.
+**GitHub Pages — già configurato.** Il workflow `.github/workflows/pages.yml`
+pubblica automaticamente a ogni push su `main`. All'inizio hai solo da attivare
+*Settings → Pages → Source: GitHub Actions*. Il workflow compone una directory
+`_site/` con **solo** ciò che serve (`index.html`, `assets/`, `robots.txt`,
+`.well-known/security.txt`), la carica e la pubblica. Se aggiungi in `index.html`
+un file nuovo da pubblicare, **aggiungilo anche alla lista di copia del
+workflow**.
+
+**Qualunque altro server** — copia tu quegli stessi quattro elementi nella
+directory pubblica (es. `/var/www/html/medphys/`):
+
+```bash
+cp index.html /var/www/html/medphys/
+cp -r assets /var/www/html/medphys/
+cp robots.txt /var/www/html/medphys/
+mkdir -p /var/www/html/medphys/.well-known && cp .well-known/security.txt /var/www/html/medphys/.well-known/
+```
+
+Su Apache/Nginx aggiungi gli header di sicurezza (`X-Content-Type-Options`,
+`Referrer-Policy`, e `frame-ancestors 'none'` per il clickjacking — vedi
+`manuale.md` §2.1b). Su GitHub Pages gli header custom non si possono
+impostare.
 
 ---
 
 ## 8. Note operative
 
 - **Aggiornare l'anno del copyright** — è automatico: `new Date().getFullYear()` in `footer()`.
-- **Lingua predefinita** — `lang = "en"` in `app.js:9`.
+- **Lingua predefinita** — `lang = "en"` in `app.js:31`.
 - **File generati su una riga sola** — se un file in `assets/data/` diventa illeggibile, riformattalo con VS Code (*Format Document*) invece di riscriverlo a mano.
-- **Diagnostica** — se il sito resta bianco, il problema è quasi sempre una virgola mancante in `site-data.js`. Controlla la console del browser (F12).
+- **Diagnostica** — se il sito resta bianco, il problema è quasi sempre una virgola mancante in `site-data.js`. Controlla la console del browser (F12). Se invece la pagina mostra la dicitura «Errore di configurazione del sito.» senza altro contenuto, `MedPhysSanitize` non è stato caricato: controlla che `sanitize.js` preceda `app.js` in `index.html` e che il file sia presente nella directory pubblicata. Quello scenario non produce un messaggio in console, solo il testo.
+- **Controllo prima di ogni modifica ai dati** — con il sito aperto in un terminale:
+  ```bat
+  node --test --test-reporter=tap tools\security.test.cjs
+  node --test --test-reporter=tap tools\render.test.cjs
+  python -m unittest discover -s tools -p "test_*.py"
+  ```
+  Tutti e tre devono riportare zero fallimenti. Sono gli stessi controlli che il
+  workflow esegue prima di ogni deploy, quindi un dato che passa qui non può
+  rompere la pubblicazione. Nessuno dei tre richiede dipendenze esterne.

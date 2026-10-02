@@ -1,0 +1,15 @@
+# Directory composta dal workflow di deploy: non va committata.
+_site/
+
+# Cache Python degli strumenti in tools/.
+__pycache__/
+*.py[cod]
+
+# File di lavoro temporanei.
+*.log
+.DS_Store
+Thumbs.db
+
+# Nota: assets/data/meta.json e assets/data/pages_en.json sono sorgenti
+# tracciate di tools/gen_en.py e NON vanno aggiunte qui: per i file gia'
+# tracciati .gitignore non ha effetto e la voce sarebbe solo fuorviante.
