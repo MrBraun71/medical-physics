@@ -166,3 +166,26 @@ test('the language switcher re-renders in place instead of reloading', () => {
   assert.strictEqual(env.window.document.documentElement.lang, 'it');
   assert.strictEqual(env.window.localStorage.getItem('medphys_lang'), 'it');
 });
+
+test('with a touch pointer external links navigate in the same tab', () => {
+  // Su webview in-app e browser con blocco pop-up l'apertura in nuova scheda
+  // viene silenziata: il tap non fa nulla. Con puntatore touch si resta nella
+  // stessa scheda, che funziona ovunque.
+  const env = makeWindow(APP_FILES, { hash: '#/home' });
+  const before = env.app.innerHTMLSerialized;
+  assert.match(before, /<a class="news-item" href="https:[^"]*" target="_blank" rel="noopener noreferrer"/,
+    'senza matchMedia il link apre in nuova scheda con rel');
+
+  env.window.matchMedia = () => ({ matches: true });
+  env.window.run(p('assets/js/app.js'));
+  const html = env.app.innerHTMLSerialized;
+  assert.ok(html.length > 1000, 'il re-render touch non ha prodotto la pagina');
+  assert.doesNotMatch(html, /target="_blank"/, 'nessuna apertura in nuova scheda su touch');
+  const news = html.match(/<a class="news-item"[^>]*>/g) || [];
+  assert.ok(news.length >= 30, `attesi i loghi newsroom, trovati ${news.length}`);
+  for (const tag of news) {
+    assert.match(tag, /href="https:/, 'su touch il logo deve restare un link con href');
+    assert.doesNotMatch(tag, /target=/, 'su touch il link deve navigare nella stessa scheda');
+  }
+  assert.match(html, /<a href="https:\/\/www\.uniba\.it">/, 'anche il footer passa alla stessa scheda');
+});

@@ -72,7 +72,9 @@
 
   /* ---------------- Modello ---------------- */
 
-  function allPeople() { return listOf("people").concat(listOf("collaborators")); }
+  function allPeople() {
+    return listOf("people").concat(listOf("past_people")).concat(listOf("collaborators"));
+  }
   function allProjects() {
     var projects = SITE.projects && typeof SITE.projects === "object" ? SITE.projects : {};
     var ongoing = Array.isArray(projects.ongoing) ? projects.ongoing : [];
@@ -100,7 +102,15 @@
   function external(url) {
     var safe = S.safeUrl(url, "link");
     if (!safe || !S.isExternalUrl(safe)) return e(url);
-    return '<a href="' + a(safe) + '" target="_blank" rel="noopener noreferrer">' + e(safe) + "</a>";
+    return '<a href="' + a(safe) + '"' + extAttrs() + ">" + e(safe) + "</a>";
+  }
+
+  /* Su schermi touch l'apertura in nuova scheda puo' essere silenziata da
+     webview in-app o dal blocco pop-up: il tap non fa nulla. Con il puntatore
+     touch si naviga nella stessa scheda, che funziona ovunque. */
+  function extAttrs() {
+    var coarse = typeof window.matchMedia === "function" && window.matchMedia("(pointer:coarse)").matches;
+    return coarse ? "" : ' target="_blank" rel="noopener noreferrer"';
   }
 
   function nameOf(slug) {
@@ -156,8 +166,8 @@
     ].map(function (item) {
       return '<li><a href="' + a(item[0]) + '">' + e(t(item[1])) + "</a></li>";
     }).join("") +
-      '<li><a href="https://www.uniba.it" target="_blank" rel="noopener noreferrer">University of Bari</a></li>' +
-      '<li><a href="https://www.ba.infn.it" target="_blank" rel="noopener noreferrer">INFN Bari</a></li>';
+      '<li><a href="https://www.uniba.it"' + extAttrs() + ">University of Bari</a></li>" +
+      '<li><a href="https://www.ba.infn.it"' + extAttrs() + ">INFN Bari</a></li>";
 
     return '<footer class="site-footer"><div class="container">' +
       '<div class="footer-grid">' +
@@ -218,7 +228,7 @@
       '<div class="news-grid">' + listOf("newsroom").map(function (n) {
         var url = S.safeUrl(n.url, "link");
         var attrs = url
-          ? ' href="' + a(url) + '" target="_blank" rel="noopener noreferrer"'
+          ? ' href="' + a(url) + '"' + extAttrs()
           : "";
         return '<a class="news-item"' + attrs + ' title="' + a(n.name) + '">' + img(n.img, n.name) + "</a>";
       }).join("") + "</div>", "dark");
@@ -275,11 +285,16 @@
   }
 
   function renderPeople() {
+    var past = listOf("past_people");
     return pageHero(section("people"),
       t({ en: "Researchers and technologists of the Medical Physics group.",
         it: "Ricercatori e tecnologi del gruppo di Fisica Medica." })) +
       '<section class="section"><div class="container"><div class="section-head"><h2>' +
-      e(section("people")) + "</h2></div>" + staffGrid(listOf("people")) + "</div></section>";
+      e(section("people")) + "</h2></div>" + staffGrid(listOf("people")) + "</div></section>" +
+      (past.length
+        ? '<section class="section alt"><div class="container"><div class="section-head"><h2>' +
+          e(section("past_people")) + "</h2></div>" + staffGrid(past) + "</div></section>"
+        : "");
   }
 
   function renderPerson(slug) {
@@ -352,7 +367,7 @@
     var c = findChallenge(slug);
     var url = S.safeUrl(c.url, "link");
     var button = url
-      ? '<p><a class="btn btn-primary" href="' + a(url) + '" target="_blank" rel="noopener noreferrer">' +
+      ? '<p><a class="btn btn-primary" href="' + a(url) + '"' + extAttrs() + ">" +
         e(t({ en: "Open challenge →", it: "Apri la sfida →" })) + "</a></p>"
       : "";
     return pageHero(t(c.title), "", crumbFor("challenges", section("challenges"))) +

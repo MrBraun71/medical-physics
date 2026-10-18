@@ -380,7 +380,11 @@ test('app.js guards every language dictionary lookup with hasOwnProperty', () =>
 test('published data carries no plaintext-http links and only sandboxed YouTube iframes', () => {
   for (const f of DATA_FILES) {
     const src = read(...f);
-    const offenders = src.match(/http:\/\//g) || [];
+    // Gli snapshot Wayback sono link https verso web.archive.org: la parte
+    // dopo il timestamp e' l'URL originale d'archivio (spesso http) e non e'
+    // un link navigabile in chiaro, quindi viene esclusa dalla scansione.
+    const scan = src.replace(/https:\/\/web\.archive\.org\/web\/[^"']+/gi, '');
+    const offenders = scan.match(/http:\/\//g) || [];
     assert.strictEqual(offenders.length, 0, `${f.join('/')} still contains ${offenders.length} http:// URL(s)`);
     const iframes = src.match(/<iframe[^>]*>/gi) || [];
     for (const tag of iframes) {
